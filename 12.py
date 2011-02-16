@@ -23,14 +23,15 @@ def n_fac(n):
       r+=1
   return r
 
-x = 0
+x = 1
 m = 0
+nextNum = 1
 while 1:
   if m > 500:
     print x
     break
-  
-  x+=1
+  nextNum += 1
+  x+=nextNum
   n = n_fac(x)
   if n > m:
     m = n
