@@ -15,24 +15,50 @@
 # We can see that 28 is the first triangle number to have over five divisors.
 # 
 # What is the value of the first triangle number to have over five hundred divisors?
-import math
-def n_fac(n):
-  r = 1
-  for i in xrange(1, n):
-    if n%i==0:
-      r+=1
-  return r
 
-x = 1
-m = 0
-nextNum = 1
-while 1:
-  if m > 500:
-    print x
-    break
-  nextNum += 1
-  x+=nextNum
-  n = n_fac(x)
-  if n > m:
-    m = n
-    print x, m
+#  new theory.
+#  if you take the prime factors, add 1 to all their exponents, and multiply them up, it's the number of divisors
+import math
+
+def prime(n):
+  if (n % 2 == 0) & (n != 2):
+    return False
+  for i in xrange(3, n/2):
+    if n%i==0:
+      return False
+  return True
+
+def primeFac(n):
+  r = [];
+  while n > 1:
+    for i in xrange(2, int(math.sqrt(n))+1):
+      if n%i==0:
+        if prime(i):
+          r.append(i)
+          n=n/i
+          if prime(n):
+            r.append(n)
+            return r
+  return r
+  
+def divisors(n):
+  l = primeFac(n)
+  l.sort()
+  r = 1
+  while l:
+    n = l.pop(0)
+    c = l.count(n)
+    r = r * (c+2)
+    l = l[c:]
+  return r
+    
+# generate triangle numbers
+n = 3
+i = 2
+f = 0
+while f < 500:
+  i += 1
+  n += i
+  f = divisors(n)
+
+print n
