@@ -18,6 +18,7 @@
 
 #  new theory.
 #  if you take the prime factors, add 1 to all their exponents, and multiply them up, it's the number of divisors
+
 import math
 
 def prime(n):
