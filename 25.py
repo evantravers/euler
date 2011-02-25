@@ -3,7 +3,7 @@ largest = 0
 F1 = 1
 F2 = 1
 counter = 3
-while len(str(largest)) <= 1000:
+while len(str(largest)) < 1000:
 	f = F1 + F2
 	if len(str(f)) > len(str(largest)):
 		largest = f
