@@ -1,3 +1,5 @@
+# TODO optimize this.
+
 import math as m
 import sys
 
@@ -14,11 +16,3 @@ def check(x, y, z):
       return False
   return True
 
-for x in xrange(1, 10000):
-  print x
-  for y in xrange(1, x):
-    for z in xrange( 1, y):
-      result = check(x, y, z)
-      if result:
-        print (x+y+z)
-        sys.exit
