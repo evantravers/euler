@@ -43,23 +43,23 @@ def primeFac(n):
   return r
   
 def divisors(n):
-  l = primeFac(n)
-  l.sort()
-  r = 1
-  while l:
-    n = l.pop(0)
-    c = l.count(n)
-    r = r * (c+2)
-    l = l[c:]
-  return r
+  listPrimes = primeFac(n)
+  listPrimes.sort()
+  result = 1
+  while listPrimes:
+    num = listPrimes.pop(0)
+    count = listPrimes.count(num)
+    result = result * (count+2)
+    listPrimes = listPrimes[count:]
+  return result
     
 # generate triangle numbers
-n = 3
+num = 3
 i = 2
-f = 0
-while f < 500:
+fib = 0
+while fib < 500:
   i += 1
-  n += i
-  f = divisors(n)
+  num += i
+  fib = divisors(num)
 
-print n
+print num

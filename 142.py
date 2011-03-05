@@ -16,3 +16,10 @@ def check(x, y, z):
       return False
   return True
 
+for x in xrange(1, 10000):
+  for y in xrange(1, x):
+    for z in xrange(1, y):
+      r = check(x, y, z)
+      if r:
+        print x+y+z
+        sys.exit

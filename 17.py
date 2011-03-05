@@ -87,6 +87,6 @@ def s_write(n):
 # main
 r=''
 for i in xrange(1, 1001):
-  print write(i)
+  # print write(i)
   r+=s_write(i)     
 print len(r)

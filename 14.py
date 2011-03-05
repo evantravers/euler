@@ -9,7 +9,7 @@ def collatz(n, x):
 m = 0
 h = 0
 for x in xrange(1, 1000000):
-  print x
+  # print x
   t = collatz(x, 1)
   if t > m:
     m = t

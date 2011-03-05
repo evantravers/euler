@@ -21,7 +21,7 @@ month = 1
 year = 1901
 sundays = 0
 
-while year<2000 or month!=12 or day!=31:
+while (year<2000) or month!=12 or day!=31:
   # print "%s\t%d/%d/%d" % (days[whichday-1], month, day, year)
   
   # is it a sunday?

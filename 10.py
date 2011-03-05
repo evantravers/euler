@@ -17,8 +17,8 @@ def euler_sieve(n):
     # Filter out non-primes and return the list.
     return [i for i in candidates[2:] if i]
     
-sumx=0
-for a in euler_sieve(2000000):
-    sumx += a
+sum_total=0
+for num in euler_sieve(2000000):
+    sum_total += num
     continue
-print sumx
+print sum_total
