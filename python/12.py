@@ -22,9 +22,9 @@
 import math
 
 def prime(n):
-  if (n % 2 == 0) & (n != 2):
+  if (n % 2 == 0) & (n != 2) & (not (n % 6 == (1 | 5))):
     return False
-  for i in xrange(3, n/2):
+  for i in range(3, int(n//2)):
     if n%i==0:
       return False
   return True
@@ -32,7 +32,7 @@ def prime(n):
 def primeFac(n):
   r = [];
   while n > 1:
-    for i in xrange(2, int(math.sqrt(n))+1):
+    for i in range(2, int(math.sqrt(n))+1):
       if n%i==0:
         if prime(i):
           r.append(i)
@@ -62,4 +62,4 @@ while fib < 500:
   num += i
   fib = divisors(num)
 
-print num
+print(num)
