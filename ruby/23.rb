@@ -1,12 +1,14 @@
-def abundant(num)
-  result = 0
-  Integer(num/2+1).downto(1) do |factor|
-    if num % factor == 0
-      # factors.append(factor)
-      result += factor
+class Integer
+  def abundant?
+    result = 0
+    Integer(self/2+1).downto(1) do |factor|
+      if self % factor == 0
+        # factors.append(factor)
+        result += factor
+      end
     end
+    return result > self
   end
-  return result > num
 end
 
 puts 'Finding all the abundant numbers...'
@@ -14,23 +16,25 @@ puts 'Finding all the abundant numbers...'
 isAbundant = []
 result = 0
 
-(1..28123).each do |number|
-  if abundant(number)
+(3..28123).each do |number|
+  if number.abundant?
+    # print "#{number}\n"
     isAbundant << number
   end
 end
 
 print "found all the abundant numbers... (#{isAbundant.size})\n"
 
-possibilities = *(1..28123)
+possibilities = *(0..28123)
 
 isAbundant.each do |factorOne|
   isAbundant.each do |factorTwo|
-    if factorOne+factorTwo+1 < 28123
-      possibilities[factorOne+factorTwo+1]=0
-    end
+    result = factorOne+factorTwo
+      # puts "We've decided that #{result} is not valid for our purposes #{possibilities[result]}"
+      possibilities[result]=0
   end
 end
 
 # print sum of the remaining possibilities
+possibilities.compact!
 puts possibilities.inject(:+)
