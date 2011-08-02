@@ -21,4 +21,4 @@ sum_total=0
 for num in euler_sieve(2000000):
     sum_total += num
     continue
-print sum_total
+print(sum_total)

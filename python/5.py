@@ -4,7 +4,7 @@ while con:
     y = 19
     while y > 0:
         if y == 1:
-            print x
+            print(x)
             con = 0
             break
         # print "checking ", x, "/", y
