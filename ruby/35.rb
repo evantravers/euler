@@ -3,28 +3,28 @@
 # be to optimize for speed.
 
 class Sieve
+  require 'Set'
   attr_reader :sieve
   @sieve
-  def initialize(n)
+  def initialize(n, testing=false)
     # implementation of my python code
     puts "Generating primes from 1 to #{n}!"
-    @sieve = Hash[(0..n).to_a.collect!{|v| [v, v]}]
+    @sieve = (0..n).to_set
     (2..(n**0.5)+1).each do |num|
-      (2..@sieve.size/num).each do |divisor|
-        @sieve[num*divisor] = nil
-        # puts '#{sieve[num*divisor]==nil} => #{num} x #{divisor} = #{num*divisor} :: #{sieve.to_s}\n'
+      (2..n/num).each do |divisor|
+        @sieve.delete(num*divisor)
       end
     end
     puts "...done!"
   end
 
   def[] n
-    @sieve[n] == n
+    @sieve.include?(n)
   end
 
   def primes
     # doesn't count 1
-    @sieve.values.compact![1..-1]
+    @sieve.to_a[1..-1]
   end
 end
 
