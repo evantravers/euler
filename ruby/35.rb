@@ -1,32 +1,47 @@
-class Integer
-  def is_prime?
-    # ("1" * self) !~ /^1?$|^(11+?)\1+$/
-    if (self % 2 == 0) & (self != 2) & (not (self % 6 == ( 1 | 5)))
-      return false
-    end
-    (3..self/2).each do |num|
-      if self % num == 0
-        return false
+# slightly overengineered so I can reuse the prime generator... this went through
+# several iterations before it came to this one. This is less elegant than it should
+# be to optimize for speed.
+
+class Sieve
+  attr_reader :sieve
+  @sieve
+  def initialize(n)
+    # implementation of my python code
+    puts "Generating primes from 1 to #{n}!"
+    @sieve = Hash[(0..n).to_a.collect!{|v| [v, v]}]
+    (2..(n**0.5)+1).each do |num|
+      (2..@sieve.size/num).each do |divisor|
+        @sieve[num*divisor] = nil
+        # puts "#{sieve[num*divisor]==nil} => #{num} x #{divisor} = #{num*divisor} :: #{sieve.to_s}\n"
       end
     end
-    return true
+    puts "...done!"
   end
 
-  def isCircPrime?
-    str = self.to_s.split("")
-    for i in (0..self.size+1)
-      if not str.rotate!.inject(:+).to_i.is_prime?
-        return false
-      end
-    end
-    return true
+  def[] n
+    @sieve[n] == n
+  end
+
+  def primes
+    # doesn't count 1
+    @sieve.values.compact![1..-1]
   end
 end
+
+s = Sieve.new(1000000)
+poss = s.primes
 
 sum = 0
-(0..10**6).each do |num|
-  puts "#{num} :: #{sum}"
-  if num.isCircPrime?
-    sum += 1
+poss.each do |prime|
+  str = prime.to_s.chars.to_a
+  bad = false
+  next if str.include?("0") | str.include?("2") | str.include?("4") | str.include?("6") | str.include?("8")
+  for i in (0..str.size)
+    if not s[str.rotate!.inject(:+).to_i]
+      bad = true
+      break
+    end
   end
+  sum+=1 if not bad
 end
+puts sum
