@@ -1,8 +1,16 @@
-# awful solution
-puts 'making huuuge string'
-fraction = (1..500000).to_a.collect(&:to_s).inject(:+)
-puts fraction.size
-puts 'made huge string'
-x = 0
-
-puts fraction[1].to_i * fraction[10].to_i * fraction[100].to_i * fraction[1000].to_i * fraction[10000].to_i * fraction[100000].to_i * fraction[1000000].to_i
+counter = 0
+num = 0
+targets = [1, 10, 100, 1000, 10000, 100000, 1000000]
+solutions = []
+until targets.empty?
+  num.to_s.chars.each do |char|
+    if targets.include?(counter)
+      targets.delete(counter)
+      puts "found a char! #{char}"
+      solutions << char.to_i
+    end 
+    counter += 1
+  end
+  num += 1
+end
+puts solutions.inject(:*)
