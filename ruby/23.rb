@@ -1,3 +1,5 @@
+require "set"
+
 class Integer
   def abundant?
     result = 0
@@ -13,13 +15,13 @@ end
 
 puts 'Finding all the abundant numbers...'
 
-isAbundant = []
+isAbundant = Set.new
 result = 0
 
 (3..28123).each do |number|
   if number.abundant?
     # print "#{number}\n"
-    isAbundant << number
+    isAbundant.add(number)
   end
 end
 

@@ -1,5 +1,5 @@
 class Sieve
-  require 'Set'
+  require 'set'
   attr_reader :sieve
   @sieve
   def initialize(n, testing=false)
