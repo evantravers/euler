@@ -1,4 +1,4 @@
-require 'Set'
+require 'set'
 def tri n
   n*(n+1)/2
 end

@@ -1,4 +1,4 @@
-require "Set"
+require "set"
 x = 1
 limit = 6
 while true
