@@ -38,8 +38,8 @@ end
 goal = 123456789
 while true
   goal = goal.to_s[0..-2].to_i
-  goal.to_s.chars.to_a.permutation.sort.reverse.each do |pan|
-    pan1 = pan.inject(:+).to_i
+  goal.to_s.chars.to_a.permutation.each do |pan|
+    pan1 = pan.join.to_i
     if pan1.is_prime?
       puts pan1
       exit
