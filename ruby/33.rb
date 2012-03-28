@@ -12,20 +12,34 @@ class Integer
   def to_set
     return self.to_s.split(//).to_set
   end
+  def uneligible?
+    self.to_s.include?('0') or self.to_s.split(//)[0] == self.to_s.split(//)[1]
+  end
 end
 
 answers = []
+answer = 1.0
 (10..99).each do |denum|
-  (10..denum-1).each do |num|
-    # get strings for each thing
-    denum_s, num_s = denum.to_set, num.to_set
-    if not (num_s.include?('0') and denum_s.include?('0')) #and denum_s.size == 1 and num_s == 1
+  unless denum.uneligible?
+    (10..denum-1).each do |num|
+      # get strings for each thing
+      denum_s, num_s = denum.to_set, num.to_set
       correct_answer = num.to_f/denum.to_f
       # remove intersections
-      new_num = num_s.delete(num_s.intersection(denum_s)).first.to_i
-      new_denum = denum_s.delete(num_s.intersection(denum_s)).first.to_i
-      dummy = new_num.to_f/new_denum.to_f
-      answers << "#{num}/#{denum} = #{correct_answer}" if dummy == correct_answer
+      num_s.each do |digit|
+        if denum_s.include? digit
+          denum_s.delete digit
+          num_s.delete digit
+        end
+      end
+      if denum_s.size == 1 and num_s.size == 1
+        new_num, new_denum = num_s.first.to_i, denum_s.first.to_i
+        dummy = new_num.to_f/new_denum.to_f
+        if dummy == correct_answer
+          answers << "#{num}/#{denum} = #{correct_answer}"
+          answer = answer * correct_answer
+        end
+      end
     end
   end
 end
@@ -33,3 +47,5 @@ end
 answers.each do |line|
   puts line
 end
+# round and return the denominator
+puts answer.round(2).rationalize
