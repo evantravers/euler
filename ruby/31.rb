@@ -10,31 +10,19 @@ class Array
   end
 end
 
-def evaluate total, start
-  if total.sum == 200
-    @total_ways << total.sort!
+# list is the current position
+# start is the point after which it has to search
+def evaluate list, start
+  in_hand = list
+  in_hand << Options[start]
+  if in_hand.sum == 200
+    @total_ways << in_hand.sort!
+    evaluate(list, start+1)
   else
-    for coin in Options[start, 8]
-      if (total.sum + coin) == 200
-        sub_total = total.dup
-        @total_ways << (sub_total << coin).sort!
-        evaluate total, start+1
-      elsif total.sum + coin < 200
-        evaluate (total << coin), start
-      end
-    end
+    evaluate(in_hand, start)
   end
 end
 
-i = 0
-for each in Options
-  total = Array.new
-  total = [each]
-  evaluate total, i
-  i += 1
-end
-for each in @total_ways
-  puts each.to_s
-end
-puts "---------"
+evaluate(Array.new, 0)
+
 puts @total_ways.size
