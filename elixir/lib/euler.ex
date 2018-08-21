@@ -2,13 +2,6 @@ defmodule Euler do
   @moduledoc """
   Documentation for Euler.
   """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-  """
 end
 
 defmodule Mix.Tasks.P do
