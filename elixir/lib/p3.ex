@@ -13,14 +13,26 @@ defmodule Euler.P3 do
   def sieve(n) when is_integer(n), do: sieve(Enum.to_list(2..n), [])
   def sieve([], result), do: Enum.reverse(result)
   def sieve([prime|tail], result) do
-    tail |> Enum.reject(& rem(&1, prime) == 0) |> sieve([prime|result])
+    tail |> Enum.reject(&is_factor?(&1, prime)) |> sieve([prime|result])
   end
+
+  def possible_factors(n), do: sieve(n)
+
+  def is_factor?(number, factor), do: rem(number, factor) == 0
 
   @doc ~S"""
       iex> prime_factors(13195)
-      [5, 7, 13, 29]
+      [29, 13, 7, 5]
   """
-  def prime_factors(number, factors \\ []) do
+  def prime_factors(n), do: prime_factors(n, [], possible_factors(n))
+  def prime_factors(number, factors, primes) do
+    if number == 1 || Enum.member?(primes, number) do
+      [number|factors]
+    else
+      # find a prime factor of the number
+      factor = Enum.find(primes, &is_factor?(number, &1))
+      prime_factors(div(number, factor), [factor|factors], primes)
+    end
   end
 
   def find_gpf(number) do
@@ -29,5 +41,5 @@ defmodule Euler.P3 do
     |> Enum.max
   end
 
-  def solve(number), do: find_gpf(number)
+  def solve, do: find_gpf(600_851_475_143)
 end
